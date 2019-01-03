@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Product Management System</title>
+
+    <link rel="stylesheet" href="/ecinfo/css/demo.css">
+    <link rel="stylesheet" href="/ecinfo/css/form-basic.css">
+    <link rel="stylesheet" href="/ecinfo/css/form-search.css">
+    <link rel="stylesheet" href="/ecinfo/css/main.css">
+    <link rel="stylesheet" href="/ecinfo/css/util.css">
+</head>
+
+
+    <header>
+        <h1>Product Management System</h1>
+    </header>
+    <ul>
+        <li><a href="/ecinfo/">Home</a></li>
+        <li><a href="/ecinfo/add/">Register</a></li>
+        <li><a href="/ecinfo/find/">Search</a></li>
+    </ul>
+
+
+    <div class="main-content">
+        <div class="form-title-row">
+            <h1 th:text="${messages}"></h1>
+        </div>
+        <form class="form-basic" method="post" action="/update/" th:action="@{/update/}" th:object="${Product}">
+
+            <div class="form-title-row">
+                <h1 th:text="${product.n_product}"></h1>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span></span>
+                    <span class="span-center">
+                        <img th:src="${product.w_image}">
+                    </span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Image URL</span>
+                    <span class="span-input"><input type="text" name="w_image" th:value="${product.w_image}" /></span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Name</span>
+                    <span class="span-input"><input type="text" name="n_product" th:value="${product.n_product}"></span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">SKU</span>
+                    <span th:text="${product.id_sku}" class="span-long">
+
+                    </span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Popularity</span>
+                    <span class="span-input">
+                        <input type="text" name="n_popurality" th:value="${product.n_popurality}">
+                    </span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Manufacturer</span>
+                    <span class="span-input">
+                        <input type="text" name="cd_manufacturer" th:value="${product.cd_manufacturer}">
+                    </span>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Model</span>
+                    <span class="span-input">
+                        <input type="text" name="cd_model" th:value="${product.cd_model}">
+                    </span>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Type</span>
+                    <span class="span-input">
+                        <input type="text" name="cd_type" th:value="${product.cd_type}">
+                    </span>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <label>
+                    <span class="span-short">UPC</span>
+                    <span class="span-input">
+                        <input type="text" name="k_upc" th:value="${product.k_upc}">
+                    </span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Price</span>
+                    <span class="span-input">
+                        <input type="text" name="n_price" th:value="${product.n_price}">
+                    </span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Shipping</span>
+                    <span class="span-input">
+                        <input type="text" name="n_shipping" th:value="${product.n_shipping}">
+                    </span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Url</span>
+                    <span class="span-input">
+                        <input type="text" name="w_url" th:value="${product.w_url}">
+                    </span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Description</span>
+                    <span class="span-long"><textarea name="w_description" th:text="${product.w_description}"></textarea></span>
+                </label>
+            </div>
+            <input type="hidden" name="id_sku" th:value="${product.id_sku}" />
+            <div class="form-row">
+                <span class="span-button"><a th:href="@{/info/{id_sku}(id_sku=${product.id_sku})}"> Back</a></span>
+                <span class=""><button type="submit">Complete</button></span>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

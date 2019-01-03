@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Product Management System</title>
+
+    <link rel="stylesheet" href="/ecinfo/css/demo.css">
+    <link rel="stylesheet" href="/ecinfo/css/form-basic.css">
+    <link rel="stylesheet" href="/ecinfo/css/form-search.css">
+    <link rel="stylesheet" href="/ecinfo/css/main.css">
+    <link rel="stylesheet" href="/ecinfo/css/util.css">
+</head>
+
+
+    <header>
+        <h1>Product Management System</h1>
+    </header>
+    <ul>
+        <li><a href="/ecinfo/">Home</a></li>
+        <li><a href="/ecinfo/add/">Register</a></li>
+        <li><a href="/ecinfo/find/">Search</a></li>
+    </ul>
+
+
+    <div class="main-content">
+        <form class="form-basic" method="post" action="#">
+
+            <div class="form-title-row">
+                <h1 th:text="${product.n_product}"></h1>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span></span>
+                    <span class="span-center"><img th:src="${product.w_image}"></span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">SKU</span>
+                    <span th:text="${product.id_sku}" class="span-long"></span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Popularity</span>
+                    <span th:text="${product.n_popurality}" class="span-long"></span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Manufacturer</span>
+                    <span th:text="${product.cd_manufacturer}" class="span-long"></span>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Model</span>
+                    <span th:text="${product.cd_model}" class="span-long"></span>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Type</span>
+                    <span th:text="${product.cd_type}" class="span-long"></span>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <label>
+                    <span class="span-short">UPC</span>
+                    <span th:text="${product.k_upc}" class="span-long"></span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Price</span>
+                    <span th:text="${product.n_price}" class="span-long"></span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Shipping</span>
+                    <span th:text="${product.n_shipping}" class="span-long"></span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Url</span>
+                    <span th:text="${product.w_url}" class="span-long"></span>
+                </label>
+            </div>
+            <div class="form-row">
+                <label>
+                    <span class="span-short">Description</span>
+                    <span class="span-long"><textarea name="textarea" readonly th:text="${product.w_description}"></textarea></span>
+                </label>
+            </div>
+            <div class="form-row">
+                <span class="span-button"><a th:href="@{/edit/{id_sku}(id_sku=${product.id_sku})}"> Edit</a></span>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

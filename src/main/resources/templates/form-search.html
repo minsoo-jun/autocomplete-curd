@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Product Management System</title>
+
+    <link rel="stylesheet" href="/ecinfo/css/demo.css">
+    <link rel="stylesheet" href="/ecinfo/css/form-basic.css">
+    <link rel="stylesheet" href="/ecinfo/css/form-search.css">
+
+</head>
+
+
+    <header>
+        <h1>Product Management System</h1>
+    </header>
+    <ul>
+        <li><a href="/ecinfo/">Home</a></li>
+        <li><a href="/ecinfo/add/">Register</a></li>
+        <li><a href="/ecinfo/find/">Search</a></li>
+    </ul>
+
+
+    <div class="main-content">
+
+        <!-- You only need this form and the form-basic.css -->
+        <form class="form-search" action="/search/" th:action="@{/search/}" th:object="${SearchDomain}">
+            <input type="search" name="keyword" placeholder="I am looking for..">
+            <button type="submit">Search</button>
+            <i class="fa fa-search"></i>
+        </form>
+        <br/>
+
+        <!-- search result -->
+
+            <div class="limiter" th:if="${products}">
+                <div class="container-table100">
+                    <div class="wrap-table100">
+                        <div class="table100 ver1 m-b-110">
+                            <div class="table100-body js-pscroll">
+                                <table>
+                                    <tr class="row100 head">
+                                        <th class="cell200">Name</th>
+                                        <th class="cell200">Popurality</th>
+                                        <th class="cell200">Price</th>
+                                        <th class="cell200">Model</th>
+                                        <th class="cell200">Type</th>
+                                        <th class="cell200">Manufacturer</th>
+                                        <th class="cell200">Description</th>
+                                    </tr>
+                                    <tbody>
+                                    <tr th:each="product : ${products}" class="row100 body">
+                                        <td class="cell100"><a th:href="@{/info/{id_sku}(id_sku=${product.id_sku})}" th:text="${product.n_product}"></a></td>
+                                        <td class="cell100" th:text="${product.n_popurality}"></td>
+                                        <td class="cell100" th:text="${product.n_price}"></td>
+                                        <td class="cell100" th:text="${product.cd_model}"></td>
+                                        <td class="cell100" th:text="${product.cd_type}"></td>
+                                        <td class="cell100" th:text="${product.cd_manufacturer}"></td>
+                                        <td class="cell100" th:text="${product.w_description}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+
+</body>
+
+</html>

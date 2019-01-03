@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Product Management System</title>
+
+    <link rel="stylesheet" href="/ecinfo/css/demo.css">
+    <link rel="stylesheet" href="/ecinfo/css/form-basic.css">
+    <link rel="stylesheet" href="/ecinfo/css/form-search.css">
+    <link rel="stylesheet" href="/ecinfo/css/main.css">
+    <link rel="stylesheet" href="/ecinfo/css/util.css">
+</head>
+
+
+<header>
+    <h1>Product Management System</h1>
+</header>
+<ul>
+    <li><a href="/ecinfo/">Home</a></li>
+    <li><a href="/ecinfo/add/" class="active">Register</a></li>
+    <li><a href="/ecinfo/find/">Search</a></li>
+</ul>
+
+
+<div class="main-content">
+    <div class="form-title-row">
+        <h1 th:text="${messages}"></h1>
+    </div>
+    <form class="form-basic" method="post" action="/save/" th:action="@{/save/}" th:object="${Product}">
+
+        <div class="form-title-row">
+            <h1> Register New Product</h1>
+        </div>
+        <div class="form-row">
+            <label>
+                <span class="span-short">Image URL</span>
+                <span class="span-input"><input type="text" name="w_image" placeholder="image url: http://myddomain.com/a.jpg"/></span>
+            </label>
+        </div>
+        <div class="form-row">
+            <label>
+                <span class="span-short">Name</span>
+                <span class="span-input"><input type="text" name="n_product" placeholder="Product Name"></span>
+            </label>
+        </div>
+        <div class="form-row">
+            <label>
+                <span class="span-short">Popularity</span>
+                <span class="span-input">
+                        <input type="text" name="n_popurality" value="0" placeholder="Int value only:0 to 1000">
+                    </span>
+            </label>
+        </div>
+        <div class="form-row">
+            <label>
+                <span class="span-short">Manufacturer</span>
+                <span class="span-input">
+                        <input type="text" name="cd_manufacturer" placeholder="Manufacturer Name">
+                    </span>
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>
+                <span class="span-short">Model</span>
+                <span class="span-input">
+                        <input type="text" name="cd_model" placeholder="Model Code">
+                    </span>
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>
+                <span class="span-short">Type</span>
+                <span class="span-input">
+                        <input type="text" name="cd_type" placeholder="Product Type">
+                    </span>
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>
+                <span class="span-short">UPC</span>
+                <span class="span-input">
+                        <input type="text" name="k_upc" placeholder="UPC">
+                    </span>
+            </label>
+        </div>
+        <div class="form-row">
+            <label>
+                <span class="span-short">Price</span>
+                <span class="span-input">
+                        <input type="text" name="n_price" value="0" placeholder="Double value only 99.99">
+                </span>
+            </label>
+        </div>
+        <div class="form-row">
+            <label>
+                <span class="span-short">Shipping</span>
+                <span class="span-input">
+                        <input type="text" name="n_shipping" value="0" placeholder="Double value Shipping Code">
+                    </span>
+            </label>
+        </div>
+        <div class="form-row">
+            <label>
+                <span class="span-short">Url</span>
+                <span class="span-input">
+                        <input type="text" name="w_url" placeholder="Product page URL">
+                    </span>
+            </label>
+        </div>
+        <div class="form-row">
+            <label>
+                <span class="span-short">Description</span>
+                <span class="span-long"><textarea name="w_description" placeholder="Product description"></textarea></span>
+            </label>
+        </div>
+        <div class="form-row">
+            <input type="hidden" name="id_sku" value="0" />
+            <span class="span-button"><a th:href="@{/}"> Back</a></span>
+            <span class=""><button type="submit">Register</button></span>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>
