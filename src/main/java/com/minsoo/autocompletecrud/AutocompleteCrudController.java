@@ -2,6 +2,7 @@ package com.minsoo.autocompletecrud;
 
 import com.minsoo.autocompletecrud.domain.Product;
 import com.minsoo.autocompletecrud.domain.SearchDomain;
+import com.minsoo.autocompletecrud.pubsub.PublisherService;
 import com.minsoo.autocompletecrud.repository.ProductRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,16 @@ import org.springframework.ui.Model;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.minsoo.autocompletecrud.constants.Constants.GOOGLE_APPLICATION_CREDENTIALS;
+
 @Controller
 public class AutocompleteCrudController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private PublisherService publisherService;
 
     @PostMapping(path="/save/")
     public String addProduct(@Valid Product product, BindingResult result, Model model){
@@ -88,5 +94,17 @@ public class AutocompleteCrudController {
             model.addAttribute("products", productRepository.findByName(keyword));
         }
         return "form-search";
+    }
+
+    @GetMapping(path="/pubTest/")
+    public String pubsub(Model model){
+        return "pubsub";
+    }
+
+    @PostMapping(path="/publishMessage/")
+    public String sendMessage() throws Exception{
+        String dummyMessage = "dummy";
+        publisherService.dataPublish("product_autocomplete",dummyMessage);
+        return "pubsub";
     }
 }
