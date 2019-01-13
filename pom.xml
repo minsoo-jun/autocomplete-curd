@@ -47,19 +47,19 @@
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 		</dependency>
-
+		<!--
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		-->
 
-		<!--
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
         </dependency>
-		-->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -102,6 +102,13 @@
 			<artifactId>google-cloud-pubsub</artifactId>
 			<version>1.55.0</version>
 		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>4.1.19.Final</version>
+			<scope>compile</scope>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -118,6 +125,12 @@
 	</dependencyManagement>
 
 	<build>
+		<extensions>
+			<extension>
+				<groupId>kr.motd.maven</groupId>
+				<artifactId>os-maven-plugin</artifactId>
+			</extension>
+		</extensions>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
