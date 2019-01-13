@@ -1,8 +1,8 @@
 package com.minsoo.autocompletecrud;
 
 import com.minsoo.autocompletecrud.domain.Product;
+import com.minsoo.autocompletecrud.domain.ProductPubSub;
 import com.minsoo.autocompletecrud.domain.SearchDomain;
-import com.minsoo.autocompletecrud.pubsub.PublisherService;
 import com.minsoo.autocompletecrud.repository.ProductRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,11 @@ public class AutocompleteCrudController {
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-    private PublisherService publisherService;
+    private final PubSubProductGateway pubSubProductGateway;
+
+    public AutocompleteCrudController(PubSubProductGateway pubSubProductGateway){
+        this.pubSubProductGateway = pubSubProductGateway;
+    }
 
     @PostMapping(path="/save/")
     public String addProduct(@Valid Product product, BindingResult result, Model model){
@@ -80,6 +83,10 @@ public class AutocompleteCrudController {
         System.out.println(product.getN_popurality());
         */
         model.addAttribute("product", productRepository.updateProduct(product));
+
+        ProductPubSub productPubSub = new ProductPubSub(product.getN_product(), product.getId_sku(), product.getN_popurality());
+        System.out.println("Product=" + productPubSub.toString());
+        this.pubSubProductGateway.sendProductToPubSub(productPubSub);
         return "form-info";
     }
 
@@ -94,17 +101,5 @@ public class AutocompleteCrudController {
             model.addAttribute("products", productRepository.findByName(keyword));
         }
         return "form-search";
-    }
-
-    @GetMapping(path="/pubTest/")
-    public String pubsub(Model model){
-        return "pubsub";
-    }
-
-    @PostMapping(path="/publishMessage/")
-    public String sendMessage() throws Exception{
-        String dummyMessage = "dummy";
-        publisherService.dataPublish("product_autocomplete",dummyMessage);
-        return "pubsub";
     }
 }
