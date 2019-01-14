@@ -19,7 +19,7 @@ public class ProductRepository{
 
     private final String FIND_ALL = "select id_sku, cd_manufacturer, cd_model, cd_type, k_upc, n_price, n_product, n_shipping, w_description, w_image, w_url, n_popurality from m_product order by n_popurality desc limit " + DEFALUT_SEARCH_LIMIT;
 
-    private final String FIND_1000 = "select id_sku, cd_manufacturer, cd_model, cd_type, k_upc, n_price, n_product, n_shipping, w_description, w_image, w_url, n_popurality from m_product order by n_popurality desc limit 2000";
+    private final String FIND_1000 = "select id_sku, cd_manufacturer, cd_model, cd_type, k_upc, n_price, n_product, n_shipping, w_description, w_image, w_url, n_popurality from m_product order by n_popurality desc ";
 
     private final String GET_MAX_SKU = "select max(id_sku)+1 sku from m_product";
 

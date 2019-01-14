@@ -115,6 +115,7 @@ public class AutocompleteCrudController {
     public String dataSyncForWord(){
         List<Product> productList = productRepository.find1000();
 
+        int i = 0;
         for(Product product: productList){
             List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
             converters.add(new FormHttpMessageConverter());
@@ -133,7 +134,8 @@ public class AutocompleteCrudController {
             String url = "http://localhost:8888/ecdata/datasync";
 
             String result = restTemplate.postForObject(url, map, String.class);
-            System.out.println(result);
+            System.out.println(result + " " + i);
+            i++;
         }
 
 
