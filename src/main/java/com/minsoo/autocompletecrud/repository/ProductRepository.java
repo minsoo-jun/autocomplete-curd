@@ -19,6 +19,8 @@ public class ProductRepository{
 
     private final String FIND_ALL = "select id_sku, cd_manufacturer, cd_model, cd_type, k_upc, n_price, n_product, n_shipping, w_description, w_image, w_url, n_popurality from m_product order by n_popurality desc limit " + DEFALUT_SEARCH_LIMIT;
 
+    private final String FIND_1000 = "select id_sku, cd_manufacturer, cd_model, cd_type, k_upc, n_price, n_product, n_shipping, w_description, w_image, w_url, n_popurality from m_product order by n_popurality desc limit 2000";
+
     private final String GET_MAX_SKU = "select max(id_sku)+1 sku from m_product";
 
     private final String UPDATE_BY_SKU = "update m_product set cd_manufacturer=?"
@@ -56,6 +58,26 @@ public class ProductRepository{
                 ,rs.getString("w_image")
                 ,rs.getString("w_url")
                 ,rs.getInt("n_popurality")));
+
+        return result;
+    }
+
+    public List<Product> find1000(){
+
+        // find all products
+        List<Product> result = jdbcTemplate.query(FIND_1000
+                , (rs, rowNum) -> new Product(rs.getInt("id_sku")
+                        ,rs.getString("cd_manufacturer")
+                        ,rs.getString("cd_model")
+                        ,rs.getString("cd_type")
+                        ,rs.getString("k_upc")
+                        ,rs.getDouble("n_price")
+                        ,rs.getString("n_product")
+                        ,rs.getDouble("n_shipping")
+                        ,rs.getString("w_description")
+                        ,rs.getString("w_image")
+                        ,rs.getString("w_url")
+                        ,rs.getInt("n_popurality")));
 
         return result;
     }

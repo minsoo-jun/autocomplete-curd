@@ -4,14 +4,21 @@ import com.minsoo.autocompletecrud.domain.Product;
 import com.minsoo.autocompletecrud.domain.ProductPubSub;
 import com.minsoo.autocompletecrud.domain.SearchDomain;
 import com.minsoo.autocompletecrud.repository.ProductRepository;
+import org.apache.commons.collections4.map.MultiValueMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.converter.StringHttpMessageConverter;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.minsoo.autocompletecrud.constants.Constants.GOOGLE_APPLICATION_CREDENTIALS;
@@ -94,6 +101,7 @@ public class AutocompleteCrudController {
     public String findProduct(Model model){
         return "form-search";
     }
+
     @GetMapping(path="/search/")
     public String searchProduct(@RequestParam(value = "keyword") String keyword, Model model){
         System.out.println("Search Keyword: " + keyword);
@@ -102,4 +110,35 @@ public class AutocompleteCrudController {
         }
         return "form-search";
     }
+
+    @GetMapping(path="/datasync/")
+    public String dataSyncForWord(){
+        List<Product> productList = productRepository.find1000();
+
+        for(Product product: productList){
+            List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
+            converters.add(new FormHttpMessageConverter());
+            converters.add(new StringHttpMessageConverter());
+
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.setMessageConverters(converters);
+
+            LinkedMultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+            map.add("n_product", product.getN_product());
+            map.add("id_sku", product.getId_sku()+"");
+            map.add("n_popurality", product.getN_popurality()+"");
+
+            System.out.println("n_product:" + product.getN_product());
+
+            String url = "http://localhost:8888/ecdata/datasync";
+
+            String result = restTemplate.postForObject(url, map, String.class);
+            System.out.println(result);
+        }
+
+
+        return "index";
+    }
+
+
 }
