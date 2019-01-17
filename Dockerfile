@@ -25,8 +25,8 @@ CMD /compile.sh
 
 VOLUME /usr/local/autocomplete-curd
 ADD target/autocomplete-crud-1.0.0-SNAPSHOT.jar /usr/local/autocomplete-curd/autocomplete-curd.jar
-ADD key/autocomplete-demo.json /usr/local/autocomplete-curd/autocomplete-demo.json
+ADD key/autocomplete-demo-pub-sub.json /usr/local/autocomplete-curd/autocomplete-demo-pub-sub.json
 ENV JAVA_OPTS="-Dspring.profiles.active=prod"
-RUN export GOOGLE_APPLICATION_CREDENTIALS="/usr/local/autocomplete-curd/autocomplete-demo.json"
+RUN export GOOGLE_APPLICATION_CREDENTIALS="/usr/local/autocomplete-curd/autocomplete-demo-pub-sub.json"
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=prod","-jar","/usr/local/autocomplete-curd/autocomplete-curd.jar"]
 
